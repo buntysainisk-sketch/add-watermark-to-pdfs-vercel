@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Taxmann PDF Watermark Tool</title>
+    <link rel="icon" href="{{ url_for('static', filename='taxmann_logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="/">
+          <img src="{{ url_for('static', filename='taxmann_logo.png') }}" alt="Taxmann">
+          <span>PDF Watermark Tool</span>
+        </a>
+        <div id="header-actions" class="header-actions" hidden>
+          <a id="download-button" class="primary-button download-button" href="#">Download <span class="button-arrow">↓</span></a>
+          <button id="new-file-button" class="secondary-button" type="button">New PDF</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="intro">
+        <h1>Add a professional watermark to every page.</h1>
+      </section>
+
+      <div id="alert" class="alert" role="alert" hidden></div>
+
+      <form id="watermark-form">
+        <section class="card upload-card">
+          <div class="section-heading">
+            <div class="step-number">01</div>
+            <div>
+              <p class="eyebrow">START HERE</p>
+              <h2>Upload your PDF</h2>
+            </div>
+          </div>
+          <label id="drop-zone" class="drop-zone" for="pdf-input">
+            <input id="pdf-input" name="pdf" type="file" accept="application/pdf,.pdf" hidden>
+            <span class="upload-icon" aria-hidden="true">↑</span>
+            <strong>Drop your PDF here</strong>
+            <span>or <u>browse from your computer</u></span>
+            <small>PDF only · Maximum file size 50 MB</small>
+          </label>
+          <div id="file-summary" class="file-summary">
+            <span class="pdf-badge">PDF</span>
+            <div class="file-details">
+              <strong id="file-name"></strong>
+              <span id="file-size"></span>
+            </div>
+            <button id="remove-file" class="icon-button" type="button" aria-label="Remove selected file">×</button>
+          </div>
+        </section>
+
+        <section class="card settings-card">
+          <div class="section-heading settings-heading">
+            <div class="step-number">02</div>
+            <div>
+              <p class="eyebrow">MAKE IT YOURS</p>
+              <h2>Watermark settings</h2>
+            </div>
+            <button id="adjust-button" class="adjust-button" type="button">Adjust watermark</button>
+          </div>
+          <input id="adjust" name="adjust" type="hidden" value="false">
+          <div id="editable-settings" class="editable-settings">
+            <div class="setting">
+              <div class="setting-label"><label for="opacity">Opacity</label><output id="opacity-value">12%</output></div>
+              <input id="opacity" name="opacity" type="range" min="2" max="60" value="12" disabled>
+            </div>
+            <div class="setting">
+              <div class="setting-label"><label for="logo-size">Logo size</label><output id="logo-size-value">100%</output></div>
+              <input id="logo-size" name="logo_size" type="range" min="10" max="100" value="100" disabled>
+            </div>
+            <div class="setting setting-full">
+              <div class="setting-label"><label for="rotation">Diagonal rotation</label><output id="rotation-value">45°</output></div>
+              <input id="rotation" name="rotation" type="range" min="-45" max="45" value="45" disabled>
+            </div>
+          </div>
+          <div class="watermark-preview">
+            <img src="{{ url_for('static', filename='taxmann_logo.png') }}" alt="">
+            <span>Fixed Taxmann watermark · centered on every page</span>
+          </div>
+        </section>
+
+        <button id="process-button" class="primary-button" type="submit" disabled>
+          <span class="spinner" hidden></span>
+          <span id="process-label">Process PDF</span>
+          <span class="button-arrow">→</span>
+        </button>
+      </form>
+
+      <section id="result-section" class="card result-card" hidden>
+        <div class="viewer-shell">
+          <iframe id="pdf-viewer" title="Watermarked PDF preview"></iframe>
+        </div>
+      </section>
+    </main>
+    <footer><span>© Taxmann</span><span>Your original file is never overwritten.</span></footer>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
